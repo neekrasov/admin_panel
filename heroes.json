@@ -1,0 +1,47 @@
+{
+    "heroes": [
+        {
+            "id": 1,
+            "name": "Hero 1",
+            "description": "Description 1",
+            "element": "fire"
+        },
+        {
+            "id": 2,
+            "name": "Hero 2",
+            "description": "Description 2",
+            "element": "wind"
+        },
+        {
+            "id": 3,
+            "name": "Hero 3",
+            "description": "Description 3",
+            "element": "water"
+        },
+        {
+            "id": 4,
+            "name": "Hero 4",
+            "description": "Description 4",
+            "element": "fire"
+        },
+        {
+            "id": 5,
+            "name": "Hero 5",
+            "description": "Description 5",
+            "element": "wind"
+        },
+        {
+            "id": 6,
+            "name": "Hero 6",
+            "description": "Description 6",
+            "element": "water"
+        }
+    ],
+    "filters": [
+        "all",
+        "fire",
+        "water",
+        "wind",
+        "earth"
+    ]
+}
