@@ -9,7 +9,7 @@ import Spinner from '../Spinner/Spinner';
 // 1. При клике на "крестик" идет удаление персонажа из общего состояния и из файла json.
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus} = useSelector(state => state);
+    const {heroes, heroesLoadingStatus, currentFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -37,8 +37,9 @@ const HeroesList = () => {
             return <HeroesListItem key={id} id={id} {...props}/>
         })
     }
-
-    const elements = renderHeroesList(heroes);
+    
+    const elements = currentFilter === 'all'? renderHeroesList(heroes):  renderHeroesList(heroes).filter(({props}) => props.element === currentFilter);
+    
     return (
         <ul>
             {elements}

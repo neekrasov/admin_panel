@@ -36,7 +36,7 @@ const HeroesAddForm = () => {
         if (!filters && filters.length === 0) return <option>Фильтры не найдены</option>;
         if (filtersLoadingStatus === "loading") return <Spinner/>;
         else if (filtersLoadingStatus === "error") return <option>Ошибка загрузки</option>;
-        else if (filtersLoadingStatus === "idle") return filters.map((item, index) => {if (item.name !== 'all') return <option key={index} value={item.label}>{item.label}</option>});
+        else if (filtersLoadingStatus === "idle") return filters.map((item, index) => {if (item.name !== 'all') return <option key={index} value={item.name}>{item.label}</option>});
     }
 
     const loadFilters = renderFilters(filters, filtersLoadingStatus);
