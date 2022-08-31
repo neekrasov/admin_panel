@@ -12,7 +12,11 @@ import './HeroesList.sass';
 // 1. При клике на "крестик" идет удаление персонажа из общего состояния и из файла json.
 
 const HeroesList = () => {
-    const {heroes, heroesLoadingStatus, currentFilter} = useSelector(state => state);
+    const {heroesLoadingStatus} = useSelector(state => state);
+    const heroes = useSelector(state => {
+        if (state.currentFilter === 'all') return state.heroes
+        else return state.heroes.filter(({element}) => element === state.currentFilter);
+    })
     const dispatch = useDispatch();
     const {request} = useHttp();
 
@@ -32,7 +36,7 @@ const HeroesList = () => {
     }
 
     const renderHeroesList = (arr) => {
-        if (arr.length === 0) {
+        if (arr === undefined || arr.length === 0) {
             return (
                     <CSSTransition timeout={300} classNames="itemHero">
                         <h5 className="text-center mt-5"> Героев пока нет </h5>
@@ -48,12 +52,9 @@ const HeroesList = () => {
                     )
         })
     }
-    
-    const elements = currentFilter === 'all'? renderHeroesList(heroes) :  renderHeroesList(heroes).filter(({props}) => props.element === currentFilter);
-    
     return (
         <TransitionGroup component="ul">
-            {elements}
+            {renderHeroesList(heroes)}
         </TransitionGroup>
     )
 }
