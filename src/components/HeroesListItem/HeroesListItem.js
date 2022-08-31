@@ -5,14 +5,13 @@ import { useHttp } from "../../hooks/http.hook";
 
 const HeroesListItem = ({id, name, description, element}) => {
 
-    const {heroes} = useSelector(state=>state);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     const onDelete = useCallback(() => {
         request(`http://localhost:3001/heroes/${id}`,"DELETE")
-        .then(() =>dispatch(deleteHero(heroes, id)))
-        .catch(()=> console.log);
+        .then(() =>dispatch(deleteHero(id)))
+        .catch((err)=> console.log(err));
     }, [request])
 
     let elementClassName;

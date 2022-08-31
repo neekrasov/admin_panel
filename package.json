@@ -10,12 +10,14 @@
     "bootstrap": "^5.2.0",
     "classnames": "^2.3.1",
     "concurrently": "^7.3.0",
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
     "react-scripts": "^5.0.1",
     "sass": "^1.54.5",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"npx json-server heroes.json --port 3001\"",
