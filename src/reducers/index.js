@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
         case 'HERO_CREATED':
             return {
                 ...state,
-                heroes: [...state.heroes ,...action.payload],
+                heroes: [...state.heroes , action.payload],
                 heroesLoadingStatus: 'idle'
             }
         case 'FILTERS_FETCHING':
