@@ -8,25 +8,16 @@
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import {v4 as uuidv4} from "uuid";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { createHero, filtersFetched, filtersFetching, filtersFetchingError} from "../../actions";
+import { createHero} from "../../actions";
 import { useHttp } from "../../hooks/http.hook";
 import Spinner from "../Spinner/Spinner";
 
 const HeroesAddForm = () => {
-    const {heroes, filters, filtersLoadingStatus} = useSelector(state=>state);
+    const {filters, filtersLoadingStatus} = useSelector(state=>state);
     const dispatch = useDispatch();
     const {request} = useHttp();
-
-    useEffect(()=>{
-        dispatch(filtersFetching());
-        request(`http://localhost:3001/filters/`)
-            .then(data => dispatch(filtersFetched(data)))
-            .catch(() => dispatch(filtersFetchingError()));
-    // eslint-disable-next-line 
-    }, [])
 
     const onCreate = (values) => {
         const {name, text, element} = values;
@@ -42,10 +33,10 @@ const HeroesAddForm = () => {
     }
 
     const renderFilters = (filters, filtersLoadingStatus) => {
-        if (!filters && filters.length === 0) return;
+        if (!filters && filters.length === 0) return <option>Фильтры не найдены</option>;
         if (filtersLoadingStatus === "loading") return <Spinner/>;
         else if (filtersLoadingStatus === "error") return <option>Ошибка загрузки</option>;
-        else if (filtersLoadingStatus === "idle") return filters.map((item, index) => <option key={index} value={item}>{item}</option>);
+        else if (filtersLoadingStatus === "idle") return filters.map((item, index) => {if (item.name !== 'all') return <option key={index} value={item.label}>{item.label}</option>});
     }
 
     const loadFilters = renderFilters(filters, filtersLoadingStatus);
