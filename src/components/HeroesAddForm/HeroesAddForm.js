@@ -10,9 +10,8 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import {v4 as uuidv4} from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { createHero} from "../../actions";
+import { createHero } from "../HeroesList/heroesSlice";
 import { useHttp } from "../../hooks/http.hook";
-import Spinner from "../Spinner/Spinner";
 
 const HeroesAddForm = () => {
     const {filters, filtersLoadingStatus} = useSelector(state => state.filters);

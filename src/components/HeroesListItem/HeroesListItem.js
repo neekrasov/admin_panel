@@ -1,6 +1,6 @@
 import { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {deleteHero} from '../../actions'
+import { useDispatch } from "react-redux";
+import {deleteHero} from '../HeroesList/heroesSlice'
 import { useHttp } from "../../hooks/http.hook";
 
 const HeroesListItem = ({id, name, description, element}) => {
