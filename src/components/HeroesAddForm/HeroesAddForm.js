@@ -15,7 +15,7 @@ import { useHttp } from "../../hooks/http.hook";
 import Spinner from "../Spinner/Spinner";
 
 const HeroesAddForm = () => {
-    const {filters, filtersLoadingStatus} = useSelector(state=>state);
+    const {filters, filtersLoadingStatus} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

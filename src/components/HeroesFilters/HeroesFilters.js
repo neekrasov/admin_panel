@@ -8,7 +8,7 @@ import { filtersFetched, filtersFetching, filtersFetchingError, filterChanged } 
 import { useDispatch, useSelector } from "react-redux";
 
 const HeroesFilters = () => {
-    const {filters, currentFilter} = useSelector(state => state);
+    const {filters, currentFilter} = useSelector(state => state.filters);
     const dispatch = useDispatch();
     const {request} = useHttp();
 

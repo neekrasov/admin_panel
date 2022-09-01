@@ -2,6 +2,7 @@ import {useHttp} from '../../hooks/http.hook';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { createSelector } from 'reselect'
 
 import { heroesFetching, heroesFetched, heroesFetchingError } from '../../actions';
 import HeroesListItem from "../HeroesListItem/HeroesListItem";
@@ -12,11 +13,16 @@ import './HeroesList.sass';
 // 1. При клике на "крестик" идет удаление персонажа из общего состояния и из файла json.
 
 const HeroesList = () => {
-    const {heroesLoadingStatus} = useSelector(state => state);
-    const heroes = useSelector(state => {
-        if (state.currentFilter === 'all') return state.heroes
-        else return state.heroes.filter(({element}) => element === state.currentFilter);
-    })
+    const {heroesLoadingStatus} = useSelector(state => state.heroes);
+    const filterHeroesSelector = createSelector(
+        state => state.heroes.heroes,
+        state => state.filters.currentFilter,
+        (heroes, filter) => {
+            if (filter !== 'all') return heroes.filter(({element}) => element === filter);
+            return heroes;
+        }
+    )
+    const heroes = useSelector(filterHeroesSelector);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
