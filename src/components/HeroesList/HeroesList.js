@@ -1,29 +1,33 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
-import { fetchHeroes, filterHeroesSelector } from './heroesSlice';
+import { useGetAllHeroesQuery } from '../../api/apiSlice';
 import HeroesListItem from "../HeroesListItem/HeroesListItem";
 import Spinner from '../Spinner/Spinner';
 import './HeroesList.sass';
 
 
+
 // 1. При клике на "крестик" идет удаление персонажа из общего состояния и из файла json.
 
 const HeroesList = () => {
-    const {heroesLoadingStatus} = useSelector(state => state.heroes);
+    const {
+        data: heroes = [],
+        isLoading,
+        isError
+    } = useGetAllHeroesQuery();
 
-    const heroes = useSelector(filterHeroesSelector);
-    const dispatch = useDispatch();
+    const currentFilter = useSelector(state=> state.filters.currentFilter);
 
-    useEffect(() => {
-        dispatch(fetchHeroes())
-        // eslint-disable-next-line
-    }, []);
+    const filteredHeroes = useMemo(() => {
+        const heroesCopy = heroes.slice();
+        if (currentFilter !== 'all') return heroesCopy.filter(({element}) => element === currentFilter);
+        return heroesCopy;
+    }, [heroes, currentFilter])
 
-    if (heroesLoadingStatus === "loading") {
+    if (isLoading) {
         return <Spinner/>;
-    } else if (heroesLoadingStatus === "error") {
+    } else if (isError) {
         return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
 
@@ -46,7 +50,7 @@ const HeroesList = () => {
     }
     return (
         <TransitionGroup component="ul">
-            {renderHeroesList(heroes)}
+            {renderHeroesList(filteredHeroes)}
         </TransitionGroup>
     )
 }

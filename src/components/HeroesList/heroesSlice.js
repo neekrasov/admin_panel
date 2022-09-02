@@ -40,6 +40,8 @@ const {actions, reducer} = heroesSlice;
 
 export default reducer;
 
+// Unused, example
+
 export const {
     heroesFetching,
     heroesFetched,

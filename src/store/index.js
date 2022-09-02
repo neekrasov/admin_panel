@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 import filters from '../components/HeroesFilters/filtersSlice'
-import heroes from '../components/HeroesList/heroesSlice';
+import { apiSlice } from '../api/apiSlice';
 
 const store = configureStore({
-    reducer: {filters, heroes},
-    middleware: getDefaultMiddleware => getDefaultMiddleware(), // thunk is the default
+    reducer: {filters, [apiSlice.reducerPath]: apiSlice.reducer},
+    middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware), // thunk is the default
     devTools: process.env.NODE_ENV !== 'production',
     
 })

@@ -8,30 +8,26 @@
 
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import {v4 as uuidv4} from "uuid";
-import { useDispatch, useSelector } from "react-redux";
+import {useSelector } from "react-redux";
 import * as Yup from "yup";
-import { createHero } from "../HeroesList/heroesSlice";
-import { useHttp } from "../../hooks/http.hook";
 import { selectAll } from "../HeroesFilters/filtersSlice";
 import store from "../../store";
+import {useCreateHeroMutation} from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
     const {filtersLoadingStatus} = useSelector(state => state.filters);
     const filters = selectAll(store.getState());
-    const dispatch = useDispatch();
-    const {request} = useHttp();
+
+    const [createHero] = useCreateHeroMutation();
 
     const onCreate = (values) => {
         const {name, text, element} = values;
-        const hero = {
+        createHero({
             id: uuidv4(),
             name: name,
             element: element,
             description: text
-        };
-
-        request(`http://localhost:3001/heroes/`, "POST", JSON.stringify(hero))
-        .then(() => dispatch(createHero(hero)));
+        }).unwrap();
     }
 
     const renderFilters = (filters, filtersLoadingStatus) => {
