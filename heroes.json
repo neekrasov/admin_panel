@@ -21,26 +21,31 @@
   ],
   "filters": [
     {
+      "id": 1,
       "name": "all",
       "label": "Все",
       "className": "btn-outline-dark"
     },
     {
+      "id": 2,
       "name": "fire",
       "label": "Огонь",
       "className": "btn-danger"
     },
     {
+      "id": 3,
       "name": "water",
       "label": "Вода",
       "className": "btn-primary"
     },
     {
+      "id": 4,
       "name": "wind",
       "label": "Ветер",
       "className": "btn-success"
     },
     {
+      "id": 5,
       "name": "earth",
       "label": "Земля",
       "className": "btn-secondary"
